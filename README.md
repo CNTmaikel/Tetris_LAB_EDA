@@ -2,17 +2,19 @@
 
 Esta guía explica cómo tú y tu compañero pueden trabajar en un mismo repositorio de GitHub utilizando ramas para evitar conflictos y mantener un flujo de trabajo ordenado.
 
+**Repositorio en GitHub:** [Tetris_LAB_EDA](https://github.com/CNTmaikel/Tetris_LAB_EDA.git)
+
 ---
 
 ## 🚀 1. Configurar el Repositorio
 1. **Crea un repositorio en GitHub** o utiliza uno existente.
 2. **Clónalo en tu computadora**:
    ```sh
-   git clone https://github.com/usuario/repository.git
+   git clone https://github.com/CNTmaikel/Tetris_LAB_EDA.git
    ```
 3. Entra en el directorio del repositorio:
    ```sh
-   cd repository
+   cd Tetris_LAB_EDA
    ```
 
 ---
