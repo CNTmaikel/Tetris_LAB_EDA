@@ -67,9 +67,28 @@ Para guardar los cambios en el repositorio de GitHub:
 ---
 
 ## 🔀 5. Fusionar la Rama en `main`
-1. Espera a que tu compañero revise y apruebe el Pull Request.
-2. Una vez aprobado, haz **merge** de la rama en `main`.
-3. Borra la rama si ya no la necesitas:
+1. **Asegúrate de estar en la rama `main`**:
+   ```sh
+   git checkout main
+   ```
+2. **Descarga los últimos cambios** para asegurarte de que `main` está actualizado:
+   ```sh
+   git pull origin main
+   ```
+3. **Fusiona la rama con los cambios en `main`**:
+   ```sh
+   git merge nombre-de-la-rama
+   ```
+4. **Resuelve cualquier conflicto que aparezca** editando los archivos afectados y luego confirmando los cambios:
+   ```sh
+   git add .
+   git commit -m "Resolviendo conflictos de merge"
+   ```
+5. **Sube los cambios fusionados a GitHub**:
+   ```sh
+   git push origin main
+   ```
+6. **Elimina la rama si ya no es necesaria**:
    ```sh
    git branch -d nombre-de-la-rama
    ```
@@ -95,5 +114,6 @@ Antes de comenzar una nueva funcionalidad, asegúrate de tener la versión más 
 - **Usa ramas** para evitar conflictos.
 - **Siempre descarga los cambios más recientes antes de comenzar a trabajar.**
 - **Utiliza Pull Requests** para integrar los cambios en `main` de manera segura.
+- **Resuelve los conflictos de merge antes de confirmar los cambios en `main`**.
 
 Con este sistema, ¡podrás trabajar colaborativamente sin sobrescribir los cambios de los demás! 🚀
