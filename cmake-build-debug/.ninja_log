@@ -1,7 +1,0 @@
-# ninja log v6
-17	93	7605886741570470	CMakeFiles/Tetris_LAB_EDA.dir/session.c.obj	88da18f170ab848f
-8	95	7605886741490407	CMakeFiles/Tetris_LAB_EDA.dir/main.c.obj	3531e13b22b8c7c8
-21	98	7605886741610514	CMakeFiles/Tetris_LAB_EDA.dir/utils.c.obj	281270897f9a5dce
-12	99	7605886741530438	CMakeFiles/Tetris_LAB_EDA.dir/pieces.c.obj	30ba17557e5327c4
-4	103	7605886741440361	CMakeFiles/Tetris_LAB_EDA.dir/game.c.obj	60c0df49697e0e98
-103	220	7605886742431255	Tetris_LAB_EDA.exe	681414f582c34833
