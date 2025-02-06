@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\mique\Documents\Universitat\Tetris_LAB_EDA Select CMakeLists.txt
