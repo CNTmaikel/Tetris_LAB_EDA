@@ -148,36 +148,34 @@ int remove_completed_lines(char board[MAX_ROWS][MAX_COLUMNS]){
 /********************************************************/
 
 void init_game_state(GameState *game_state){
-    game_state->score = 0;
+    game_state->score = 0; // La puntuació comença en 0
     for(int i = 0; i < MAX_ROWS; i++){
         for(int j = 0; j < MAX_COLUMNS; j++){
-            game_state->board[i][j] = '.';
+            game_state->board[i][j] = '.'; // Omple el tauler amb punts (caselles buides)
         }
     }
-    get_new_random_piece(game_state);
+    get_new_random_piece(game_state); // Genera una nova peça aleatòria per començar el joc
 }
 
-
 bool is_terminal(char board[MAX_ROWS][MAX_COLUMNS]){
-    // ToDo in LAB 1
+    // Recorrem les quatre primeres files per veure si hi ha alguna peça bloquejada ('X')
     for (int i = 0; i < 4; i++){
         for (int j = 0; j < MAX_COLUMNS; j++){
             if (board[i][j] == 'X'){
-                return true;
+                return true; // Si trobem una peça bloquejada en les files superiors, el joc acaba
             }
         }
     }
-    return false;
+    return false; // Si no hi ha peces bloquejades a dalt, el joc continua
 }
 
-
 void move_piece(char board[MAX_ROWS][MAX_COLUMNS], PieceInfo *piece_info, int option){
-    if (option == 1){
-        if (!is_collision(board, piece_info)){
+    if (option == 1){ // Mou a l'esquerra
+        if (!is_collision(board, piece_info)){ // Comprova que no hi hagi col·lisió abans de moure
             piece_info->at_col -= 1;
         }
     }
-    else if( option == 2){
+    else if(option == 2){ // Mou a la dreta
         if (!is_collision(board, piece_info)){
             piece_info->at_col += 1; 
         }
@@ -185,17 +183,18 @@ void move_piece(char board[MAX_ROWS][MAX_COLUMNS], PieceInfo *piece_info, int op
 }
 
 void rotate_piece(char board[MAX_ROWS][MAX_COLUMNS], PieceInfo *piece_info, int option){
-    // ToDo in LAB 1
-    if (option == 3) {
+    if (option == 3) { // Gira en sentit horari
         rotate_clockwise(&piece_info->p);
-    } else if (option == 4) {
+    } else if (option == 4) { // Gira en sentit antihorari
         rotate_counter_clockwise(&piece_info->p);
     }
-    // Ensure the rotation is valid (within bounds and no collision)
+
+    // Comprovem si la rotació és vàlida dins del tauler
     if (piece_info->at_col + piece_info->p.cols > MAX_COLUMNS) {
-        rotate_counter_clockwise(&piece_info->p);
+        rotate_counter_clockwise(&piece_info->p); // Si surt del tauler, desfem la rotació
     }
 }
+
 /********************************************************/
 /******* LAB 1 - functions to program (end here) ********/
 /********************************************************/
