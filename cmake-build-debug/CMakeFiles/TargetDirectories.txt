@@ -1,0 +1,3 @@
+C:/Users/mique/Documents/Universitat/Tetris_LAB_EDA/cmake-build-debug/CMakeFiles/Tetris_LAB_EDA.dir
+C:/Users/mique/Documents/Universitat/Tetris_LAB_EDA/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/mique/Documents/Universitat/Tetris_LAB_EDA/cmake-build-debug/CMakeFiles/rebuild_cache.dir
