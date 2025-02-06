@@ -25,6 +25,16 @@ typedef struct{
 
 } GameState;
 
+/// Implemented functions
+void print_game_state(GameState *gs);
+void print_options();
+bool is_valid_option(int option);
+void print_line();
+void print_board(GameState *game_state);
+void get_new_random_piece(GameState *game_state);
+void block_current_piece(GameState *game_state);
+bool is_collision(char board[MAX_ROWS][MAX_COLUMNS], PieceInfo *piece_info);
+
 /**** LAB 1 - functions to program (start here) ****/
 void init_game_state(GameState *game_state); // Inicialitza el joc amb una puntuació de 0 i el tauler buit
 bool is_terminal(char board[MAX_ROWS][MAX_COLUMNS]); // Comprova si el joc ha acabat (una peça bloquejada en les 4 files superiors)
