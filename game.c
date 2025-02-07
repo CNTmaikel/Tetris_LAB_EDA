@@ -170,28 +170,36 @@ bool is_terminal(char board[MAX_ROWS][MAX_COLUMNS]){
 }
 
 void move_piece(char board[MAX_ROWS][MAX_COLUMNS], PieceInfo *piece_info, int option){
-    if (option == 1){ // Mou a l'esquerra
-        if (!is_collision(board, piece_info)){ // Comprova que no hi hagi col·lisió abans de moure
-            piece_info->at_col -= 1;
+    PieceInfo temp_piece = *piece_info;
+
+    if (option == MOVE_LEFT){
+        temp_piece.at_col--;
+        if (!is_collision(board, &temp_piece)){
+            piece_info->at_col--;
         }
     }
-    else if(option == 2){ // Mou a la dreta
-        if (!is_collision(board, piece_info)){
-            piece_info->at_col += 1; 
+    else if (option == ROTATE_CCW){
+        temp_piece.at_col++;
+        if (!is_collision(board, &temp_piece)){
+            piece_info->at_col++;
         }
     }
 }
 
 void rotate_piece(char board[MAX_ROWS][MAX_COLUMNS], PieceInfo *piece_info, int option){
-    if (option == 3) { // Gira en sentit horari
-        rotate_clockwise(&piece_info->p);
-    } else if (option == 4) { // Gira en sentit antihorari
-        rotate_counter_clockwise(&piece_info->p);
-    }
+    PieceInfo temp_piece = *piece_info;
 
-    // Comprovem si la rotació és vàlida dins del tauler
-    if (piece_info->at_col + piece_info->p.cols > MAX_COLUMNS) {
-        rotate_counter_clockwise(&piece_info->p); // Si surt del tauler, desfem la rotació
+    if (option == ROTATE_CW){
+        rotate_clockwise(&temp_piece.p);
+        if (!is_collision(board, &temp_piece)){
+            piece_info->p = temp_piece.p;
+        }
+    }
+    else if (option == ROTATE_CCW){
+        rotate_counter_clockwise(&temp_piece.p);
+        if (!is_collision(board, &temp_piece)){
+            piece_info->p = temp_piece.p;
+        }
     }
 }
 
