@@ -170,35 +170,36 @@ bool is_terminal(char board[MAX_ROWS][MAX_COLUMNS]){
 }
 
 void move_piece(char board[MAX_ROWS][MAX_COLUMNS], PieceInfo *piece_info, int option){
-    PieceInfo temp_piece = *piece_info;
+    PieceInfo temp_piece = *piece_info;  // Es crea una còpia temporal de la peça actual
 
     if (option == MOVE_LEFT){
-        temp_piece.at_col--;
-        if (!is_collision(board, &temp_piece)){
-            piece_info->at_col--;
+        temp_piece.at_col--;  // Mou la peça una columna a l'esquerra
+        if (!is_collision(board, &temp_piece)){  // Comprova si hi ha col·lisió
+            piece_info->at_col--;  // Si no hi ha col·lisió, es confirma el moviment
         }
     }
-    else if (option == ROTATE_CCW){
-        temp_piece.at_col++;
-        if (!is_collision(board, &temp_piece)){
-            piece_info->at_col++;
+    else if (option == ROTATE_CCW){  
+        temp_piece.at_col++;  // Incrementa la columna (possiblement incorrecte per rotació)
+        if (!is_collision(board, &temp_piece)){  
+            piece_info->at_col++;  // Aplica el canvi si no hi ha col·lisió
         }
     }
 }
 
+// Funció per girar la peça
 void rotate_piece(char board[MAX_ROWS][MAX_COLUMNS], PieceInfo *piece_info, int option){
-    PieceInfo temp_piece = *piece_info;
+    PieceInfo temp_piece = *piece_info;  // Es crea una còpia temporal per provar la rotació
 
     if (option == ROTATE_CW){
-        rotate_clockwise(&temp_piece.p);
-        if (!is_collision(board, &temp_piece)){
-            piece_info->p = temp_piece.p;
+        rotate_clockwise(&temp_piece.p);  // Gira la peça en sentit horari
+        if (!is_collision(board, &temp_piece)){  
+            piece_info->p = temp_piece.p;  // Aplica la rotació si és vàlida
         }
     }
     else if (option == ROTATE_CCW){
-        rotate_counter_clockwise(&temp_piece.p);
-        if (!is_collision(board, &temp_piece)){
-            piece_info->p = temp_piece.p;
+        rotate_counter_clockwise(&temp_piece.p);  // Gira la peça en sentit antihorari
+        if (!is_collision(board, &temp_piece)){  
+            piece_info->p = temp_piece.p;  // Aplica la rotació si no hi ha col·lisió
         }
     }
 }
