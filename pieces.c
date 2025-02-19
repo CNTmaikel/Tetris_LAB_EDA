@@ -107,14 +107,14 @@ Piece make_I(){
     piece.name = 'I';           // Li assignem el nom I
 
     // Definim les seves dimensions
-    piece.rows = 2;
-    piece.cols = 3;
+    piece.rows = 4;
+    piece.cols = 1;
 
     // Dibuixem la peça com correspon
     piece.board[0][0] = '#';
-    piece.board[0][1] = '#';
-    piece.board[0][2] = '#';
-    piece.board[0][3] = '#';
+    piece.board[1][0] = '#';
+    piece.board[2][0] = '#';
+    piece.board[3][0] = '#';
 
     return piece;               // Retornem la peça I
 }

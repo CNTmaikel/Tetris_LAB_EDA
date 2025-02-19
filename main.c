@@ -46,17 +46,60 @@ void new_game(Session *session){
     run_game(session);
 }
 
-void save_game(Session *session){
-    // ToDo in Lab 2
+void save_game(Session *session) {
+    char filename[100];
+    printf("Nom del fitxer per guardar: ");
+    scanf("%s", filename);
+    FILE* fd = fopen(filename, "w");
+    if (!fd) {
+        printf("Error al crear el fitxer!\n");
+        return;
+    }
+    fprintf(fd, "Score: %d\n", session->current_game_state.score);
+    fprintf(fd, "Board:\nrows: %d\ncols: %d\n", session->current_game_state.rows, session->current_game_state.columns);
+    for (int i = 0; i < session->current_game_state.rows; i++) {
+        for (int j = 0; j < session->current_game_state.columns; j++) {
+            fputc(session->current_game_state.board[i][j], fd);
+        }
+        fputc('\n', fd);
+    }
+    fclose(fd);
+    printf("Partida guardada amb èxit!\n");
 }
 
-void load_game(Session *session){
-    // ToDo in Lab 2
+
+void load_game(Session *session) {
+    char filename[100];
+    printf("Nom del fitxer per carregar: ");
+    scanf("%s", filename);
+    FILE* fd = fopen(filename, "r");
+    if (!fd) {
+        printf("Error en obrir el fitxer!\n");
+        return;
+    }
+    fscanf(fd, "Score: %d\n", &session->current_game_state.score);
+    fscanf(fd, "Board:\nrows: %d\ncols: %d\n", &session->current_game_state.rows, &session->current_game_state.columns);
+    make_board(&session->current_game_state);
+    for (int i = 0; i < session->current_game_state.rows; i++) {
+        for (int j = 0; j < session->current_game_state.columns; j++) {
+            session->current_game_state.board[i][j] = fgetc(fd);
+        }
+        fgetc(fd);
+    }
+    fclose(fd);
+    printf("Partida carregada amb èxit!\n");
 }
 
-void resume_game(Session *session){
-    // ToDo in Lab 2
+void resume_game(Session *session) {
+    if (session->current_game_state.board == NULL) {
+        printf("No hi ha cap partida carregada! Carrega una partida primer.\n");
+        return;
+    }
+
+    printf("Reprenent la partida...\n");
+    run_game(session);
 }
+
 
 void print_menu(){
     printf("Menu options:\n");
@@ -98,6 +141,7 @@ void run(Session *session){
         }
     }while(option != EXIT);
 }
+
 
 int main(){
     Session session;
