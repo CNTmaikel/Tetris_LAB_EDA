@@ -7,6 +7,7 @@
 #include <assert.h>
 #include <string.h>
 
+
 #define NEW_GAME 1
 #define SAVE_GAME 2
 #define LOAD_GAME 3

@@ -48,6 +48,8 @@ void rotate(GameState *gs, int option); // Gira la peça en el sentit indicat
 void run_turn(GameState *game_state, int option);
 
 void free_game_state(GameState *game_state);
+void make_board(GameState *game_state);
+
 
 
 
