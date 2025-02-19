@@ -34,7 +34,7 @@ void run_game(Session *session){
         session->best_score = max(session->best_score, game_state->score);
         
         // 5. Add new number
-        finish_game = is_terminal(game_state->board);
+        finish_game = is_terminal(game_state);
     }while(!finish_game);
 
     printf("*** GAME OVER ***\n");
@@ -93,6 +93,7 @@ void run(Session *session){
             resume_game(session);
             break;
         case EXIT:
+            free_game_state(&(session->current_game_state));
             break;
         }
     }while(option != EXIT);
