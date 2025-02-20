@@ -173,6 +173,38 @@ void free_game_state(GameState *game_state){
     }
 }
 
+void set_default_game_state(GameState *gs){
+    gs->score = 0;
+
+    for (int i = 0; i < gs->rows; i++){
+        for (int j = 0; i < gs->columns; i++){
+            gs->board[i][j] = '.';
+        }
+    }
+
+    get_new_random_piece(gs);
+}
+
+void restart_game_state(GameState *gs){
+
+    int files, columnes;
+
+    do {
+        printf("Introdueix el nombre de files (mínim %d): ", MIN_ROWS);
+        files = read_int();
+    
+        printf("Introdueix el nombre de files (mínim %d): ", MIN_COLUMNS);
+        columnes = read_int();
+
+        if (files < MIN_ROWS || columnes < MIN_COLUMNS) {
+            printf("[ERROR!]: Les dimensions han de ser més grans que %d x %d.\n", MIN_ROWS, MIN_COLUMNS);
+        }
+
+    }while (files < MIN_ROWS || columnes < MIN_COLUMNS);
+
+    make_board(gs);
+    set_default_game_state(gs);
+}
 
 /********************************************************/
 /******* LAB 2 - functions to program (end here) ********/
