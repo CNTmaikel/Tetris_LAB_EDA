@@ -49,6 +49,8 @@ void run_turn(GameState *game_state, int option);
 
 void free_game_state(GameState *game_state);
 void make_board(GameState *game_state);
+void set_default_game(GameState *game_state);
+void restart_game_state(GameState *game_state);
 
 
 

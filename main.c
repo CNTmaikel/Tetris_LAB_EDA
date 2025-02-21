@@ -24,7 +24,7 @@ void run_game(Session *session){
         // 3.b Show best move
         if(game_option == SHOW_BEST_MOVE){
             // ToDo in Lab 3
-            continue;
+
         }
 
         // 3.c Run one turn with the given option

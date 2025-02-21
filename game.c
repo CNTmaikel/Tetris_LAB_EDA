@@ -186,21 +186,24 @@ void set_default_game_state(GameState *gs){
 }
 
 void restart_game_state(GameState *gs){
-
-    int files, columnes;
-
     do {
         printf("Introdueix el nombre de files (mínim %d): ", MIN_ROWS);
-        files = read_int();
-    
-        printf("Introdueix el nombre de files (mínim %d): ", MIN_COLUMNS);
-        columnes = read_int();
+        scanf("%i", &gs->rows);
 
-        if (files < MIN_ROWS || columnes < MIN_COLUMNS) {
-            printf("[ERROR!]: Les dimensions han de ser més grans que %d x %d.\n", MIN_ROWS, MIN_COLUMNS);
+        if (gs->rows < MIN_ROWS) {
+            printf("[ERROR!]: Les dimensions han de ser més grans que %d.\n", MIN_ROWS);
+        }
+    }while(gs->rows < MIN_ROWS);
+    
+    do{
+        printf("Introdueix el nombre de files (mínim %d): ", MIN_COLUMNS);
+        scanf("%i", &gs->columns);
+
+        if (gs->rows < MIN_COLUMNS) {
+            printf("[ERROR!]: Les dimensions han de ser més grans que %d.\n", MIN_COLUMNS);
         }
 
-    }while (files < MIN_ROWS || columnes < MIN_COLUMNS);
+    }while (gs->rows < MIN_COLUMNS);
 
     make_board(gs);
     set_default_game_state(gs);
@@ -227,7 +230,7 @@ void init_game_state(GameState *game_state){
         }
     }
 
-    restart_game_state(game_state);
+    get_new_random_piece(game_state);
 }
 
 
