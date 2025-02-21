@@ -223,11 +223,11 @@ void init_game_state(GameState *game_state){
     make_board(game_state);
     for(int i = 0; i < MIN_ROWS; i++){
         for(int j = 0; j < MIN_COLUMNS; j++){
-            game_state->board[i][j] = '.'; // ✔️ Ara no hauria de fallar
+            game_state->board[i][j] = '.'; 
         }
     }
 
-    get_new_random_piece(game_state);
+    restart_game_state(game_state);
 }
 
 
