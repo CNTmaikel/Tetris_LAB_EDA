@@ -24,7 +24,7 @@ bool is_valid_option(int option){
 
 
 void print_line(int columns){
-    for(int c=-1; c<MIN_COLUMNS+1; ++c) 
+    for(int c=-1; c<columns+1; ++c) 
     	printf("-");    
     printf("\n");
 }
@@ -35,11 +35,11 @@ void print_board(GameState *game_state){
     int p_col_size = piece->cols;
     int current_row = game_state->current_piece.at_row;
     int current_col = game_state->current_piece.at_col;
-    print_line(MIN_COLUMNS);
-    for(int r = 0; r < MIN_ROWS; ++r){
-        if(r == 4) print_line(MIN_COLUMNS);
+    print_line(game_state->columns);
+    for(int r = 0; r < game_state->rows; ++r){
+        if(r == 4) print_line(game_state->columns);
         printf("|");
-        for(int c=0; c < MIN_COLUMNS; ++c){
+        for(int c=0; c < game_state->columns; ++c){
             if((game_state->board[r][c] == '.') &&
                (current_row <= r) && (r < current_row + p_row_size) && 
                (current_col <= c) && (c < current_col + p_col_size)){
@@ -49,7 +49,7 @@ void print_board(GameState *game_state){
         }
         printf("|\n");
     }
-    print_line(MIN_COLUMNS);
+    print_line(game_state->columns);
     printf("\n");
 }
 
@@ -175,7 +175,6 @@ void free_game_state(GameState *game_state){
 
 void set_default_game_state(GameState *gs){
     gs->score = 0;
-
     for (int i = 0; i < gs->rows; i++){
         for (int j = 0; i < gs->columns; i++){
             gs->board[i][j] = '.';
@@ -203,7 +202,7 @@ void restart_game_state(GameState *gs){
             printf("[ERROR!]: Les dimensions han de ser més grans que %d.\n", MIN_COLUMNS);
         }
 
-    }while (gs->rows < MIN_COLUMNS);
+    }while (gs->rows <= MIN_COLUMNS);
 
     make_board(gs);
     set_default_game_state(gs);
@@ -224,20 +223,22 @@ void init_game_state(GameState *game_state){
     game_state->rows = MIN_ROWS;
     game_state->columns = MIN_COLUMNS;
     make_board(game_state);
-    for(int i = 0; i < MIN_ROWS; i++){
-        for(int j = 0; j < MIN_COLUMNS; j++){
-            game_state->board[i][j] = '.'; 
-        }
-    }
-
-    get_new_random_piece(game_state);
+    set_default_game_state(game_state);
 }
 
 
 bool is_terminal(GameState *gs){
     // Recorrem les quatre primeres files per veure si hi ha alguna peça bloquejada ('X')
-    for (int i = 0; i < 4; i++){
-        for (int j = 0; j < MIN_COLUMNS; j++){
+
+    int max;
+    if(gs->rows < 4){
+        max = gs->rows;
+    }
+    else{
+        max = 4;
+    }
+    for (int i = 0; i < max; i++){
+        for (int j = 0; j < gs->columns; j++){
             if (gs->board[i][j] == 'X'){
                 return true; // Si trobem una peça bloquejada en les files superiors, el joc acaba
             }
