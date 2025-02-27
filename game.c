@@ -144,6 +144,75 @@ int remove_completed_lines(GameState *game_state){
 }
 
 /********************************************************/
+/******* LAB 3 - functions to program (start here) ******/
+/********************************************************/
+
+
+GameState copy(GameState *game_state) {
+    GameState new_game_state; 
+
+    new_game_state.rows = game_state->rows;
+    new_game_state.columns = game_state->columns;
+    new_game_state.score = game_state->score;
+
+    new_game_state.board = (char **)malloc(new_game_state.rows * sizeof(char *));
+    for (int i = 0; i < new_game_state.rows; i++) {
+        new_game_state.board[i] = (char *)malloc(new_game_state.columns * sizeof(char));
+        for (int j = 0; j < new_game_state.columns; j++) {
+            new_game_state.board[i][j] = game_state->board[i][j]; 
+        }
+    }
+
+    new_game_state.current_piece = game_state->current_piece;
+
+    return new_game_state;
+}
+
+int recursive_best_score(GameState *game_state, int depth){
+    if (depth == MAX_DEPTH || run_turn(game_state, NONE)){
+        return game_state->score;   
+    }
+
+    int millorPuntuacio = 0;
+
+    for (int i = MOVE_LEFT; i <= NONE; i++){
+        GameState copiaGameState = copy(game_state);
+        run_turn(&copiaGameState, i);
+
+        if (!is_terminal(&copiaGameState)){
+            millorPuntuacio = recursive_best_score(game_state, (depth+1));
+        }
+        free_game_state(&copiaGameState);
+    }
+
+    return millorPuntuacio;
+
+}
+
+int show_best_move(GameState *game_state){
+    int millorMoviment = NONE;
+    int millorPuntuacio = 0;
+
+    for (int opcio = MOVE_LEFT; opcio <= NONE; opcio++){
+        GameState copiaGameState = copy(game_state);
+        run_turn(&copiaGameState, opcio);
+
+        int puntuacio = recursive_best_score(&copiaGameState, 0);
+        if (puntuacio > millorPuntuacio){
+            millorPuntuacio = puntuacio;
+            millorMoviment = opcio;
+        }
+        free_game_state(&copiaGameState);
+    }
+    return millorMoviment;
+}
+
+
+/********************************************************/
+/******* LAB 3 - functions to program (end here) ******/
+/********************************************************/
+
+/********************************************************/
 /******* LAB 2 - functions to program (start here) ******/
 /********************************************************/
 
@@ -287,7 +356,7 @@ void rotate_piece(GameState *gs, PieceInfo *piece_info, int option){
 /********************************************************/
 
 
-void run_turn(GameState *game_state, int option){
+bool run_turn(GameState *game_state, int option){
 	PieceInfo *p_inf = &(game_state->current_piece);
 	if(option == MOVE_LEFT || option == MOVE_RIGHT) 
 		move_piece(game_state, p_inf, option);
@@ -304,7 +373,10 @@ void run_turn(GameState *game_state, int option){
 		p_inf->at_row--;
 		block_current_piece(game_state);
         game_state->score += remove_completed_lines(game_state);
-        if(!is_terminal(game_state))
+        if(!is_terminal(game_state)){
             get_new_random_piece(game_state);
-	}
+	    }
+        return true;
+    }
+    return false;
 }

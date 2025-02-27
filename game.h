@@ -9,6 +9,8 @@
 #define MIN_ROWS 10
 #define MIN_COLUMNS 6
 
+#define MAX_DEPTH 5
+
 typedef struct{
     // ToDo in LAB 1 - define data structure FET!!
     Piece p; // La peça actual que s'està movent
@@ -45,14 +47,15 @@ void rotate(GameState *gs, int option); // Gira la peça en el sentit indicat
 /**** LAB 1 - functions to program (end here) ****/
 
 /// Implemented functions
-void run_turn(GameState *game_state, int option);
+bool run_turn(GameState *game_state, int option);
 
 void free_game_state(GameState *game_state);
 void make_board(GameState *game_state);
 void set_default_game_state(GameState *game_state);
 void restart_game_state(GameState *game_state);
 
-
-
+GameState copy(GameState *game_state);
+int recursive_best_score(GameState *game_state, int depth);
+int show_best_move(GameState *game_state);
 
 #endif
